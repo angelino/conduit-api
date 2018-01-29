@@ -5,4 +5,6 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [ring "1.6.3"]]
-  :main conduit-api.core)
+  :main conduit-api.core
+  :profiles {:dev {:source-paths ["src" "dev"]
+                   :main conduit-api.dev}})
