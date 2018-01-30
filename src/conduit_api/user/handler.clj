@@ -26,3 +26,12 @@
                  :username "jake"
                  :bio "I work at statefarm"
                  :image ""}}})
+
+(defn handle-login [req]
+  {:status 200
+   :headers {}
+   :body {:user {:email "jake@jake.com"
+                 :token "jwt.token.here"
+                 :username "jake"
+                 :bio "I work at statefarm"
+                 :image ""}}})
