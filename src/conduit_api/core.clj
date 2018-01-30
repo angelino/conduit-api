@@ -1,7 +1,10 @@
 (ns conduit-api.core
   (:require [ring.adapter.jetty :as jetty]
-            [ring.middleware.json :refer [wrap-json-response]]
-            [compojure.core :refer [defroutes GET POST]]
+            [ring.middleware.params :refer [wrap-params]]
+            [ring.middleware.json :refer [wrap-json-params
+                                          wrap-json-response]]
+            [ring.handler.dump :refer [handle-dump]]
+            [compojure.core :refer [defroutes ANY GET POST]]
             [compojure.route :refer [not-found]]))
 
 (defn hello-world [req]
@@ -22,10 +25,13 @@
   (GET "/" [] hello-world)
 
   (POST "/api/users/login" [] handle-login)
+  (ANY "/request" [] handle-dump)
   (not-found "Page not found!"))
 
 (def app 
   (-> routes
+      wrap-params
+      wrap-json-params
       wrap-json-response))
 
 (defn -main [port]
