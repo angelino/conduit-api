@@ -4,11 +4,14 @@
             [ring.middleware.json :refer [wrap-json-params
                                           wrap-json-response]]
             [ring.handler.dump :refer [handle-dump]]
-            [compojure.core :refer [defroutes ANY GET POST PUT]]
+            [compojure.core :refer [defroutes ANY GET POST PUT DELETE]]
             [compojure.route :refer [not-found]]
             [conduit-api.user.handler :refer [handle-create-user
                                               handle-update-user
-                                              handle-show-current-user]]))
+                                              handle-show-current-user]]
+            [conduit-api.profile.handler :refer [handle-profile
+                                                 handle-follow
+                                                 handle-unfollow]]))
 
 (defn hello-world [req]
   {:status 200
@@ -24,22 +27,19 @@
                  :bio "I work at statefarm"
                  :image ""}}})
 
-(defn handle-profile [req]
-  {:status 200
-   :headers {}
-   :body {:profile {:username "jake"
-                    :bio "I work at statefarm"
-                    :image "https://static.productionready.io/images/smiley-cyrus.jpg"
-                    :fallowing false}}})
-
 (defroutes routes
   (GET "/" [] hello-world)
 
   (POST "/api/users/login" [] handle-login)
+
   (POST "/api/users" [] handle-create-user)
   (GET "/api/user" [] handle-show-current-user)
   (PUT "/api/user" [] handle-update-user)
+
   (GET "/api/profiles/:username" [] handle-profile)
+  (POST "/api/profiles/:username/follow" [] handle-follow)
+  (DELETE "/api/profiles/:username/follow" [] handle-unfollow)
+
   (ANY "/request" [] handle-dump)
   (not-found "Page not found!"))
 
