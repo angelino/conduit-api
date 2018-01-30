@@ -21,10 +21,19 @@
                  :bio "I work at statefarm"
                  :image ""}}})
 
+(defn handle-profile [req]
+  {:status 200
+   :headers {}
+   :body {:profile {:username "jake"
+                    :bio "I work at statefarm"
+                    :image "https://static.productionready.io/images/smiley-cyrus.jpg"
+                    :fallowing false}}})
+
 (defroutes routes
   (GET "/" [] hello-world)
 
   (POST "/api/users/login" [] handle-login)
+  (GET "/api/profiles/:username" [] handle-profile)
   (ANY "/request" [] handle-dump)
   (not-found "Page not found!"))
 
