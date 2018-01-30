@@ -11,4 +11,4 @@
   :profiles {:dev {:source-paths ["src" "dev"]
                    :main conduit-api.dev}}
   :min-lein-version "2.0.0"
-  :uberjar-name "conduit-api")
+  :uberjar-name "conduit-api.jar")
