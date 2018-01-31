@@ -12,7 +12,13 @@
                                               handle-show-current-user]]
             [conduit-api.profile.handler :refer [handle-profile
                                                  handle-follow
-                                                 handle-unfollow]]))
+                                                 handle-unfollow]]
+            [conduit-api.article.handler :refer [handle-show-article
+                                                 handle-index-articles
+                                                 handle-feed-articles
+                                                 handle-create-article
+                                                 handle-update-article
+                                                 handle-delete-article]]))
 
 (defn hello-world [req]
   {:status 200
@@ -23,7 +29,6 @@
   (GET "/" [] hello-world)
 
   (POST "/api/users/login" [] handle-login)
-
   (POST "/api/users" [] handle-create-user)
   (GET "/api/user" [] handle-show-current-user)
   (PUT "/api/user" [] handle-update-user)
@@ -31,6 +36,13 @@
   (GET "/api/profiles/:username" [] handle-profile)
   (POST "/api/profiles/:username/follow" [] handle-follow)
   (DELETE "/api/profiles/:username/follow" [] handle-unfollow)
+
+  (GET "/api/articles" [] handle-index-articles)
+  (GET "/api/articles/feed" [] handle-feed-articles)
+  (GET "/api/articles/:slug" [] handle-show-article)
+  (POST "/api/articles" [] handle-create-article)
+  (PUT "/api/articles/:slug" [] handle-update-article)
+  (DELETE "/api/articles/:slug" [] handle-delete-article)
 
   (ANY "/request" [] handle-dump)
   (not-found "Page not found!"))
