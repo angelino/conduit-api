@@ -6,6 +6,8 @@
             [ring.handler.dump :refer [handle-dump]]
             [compojure.core :refer [defroutes ANY GET POST PUT DELETE]]
             [compojure.route :refer [not-found]]
+            [camel-snake-kebab.core :refer [->camelCaseKeyword]]
+            [camel-snake-kebab.extras :refer [transform-keys]]
             [conduit-api.user.handler :refer [handle-login
                                               handle-create-user
                                               handle-update-user
@@ -47,10 +49,17 @@
   (ANY "/request" [] handle-dump)
   (not-found "Page not found!"))
 
+(defn wrap-json-camelcase-keys [handler]
+  (fn [req]
+    (let [resp (handler req)
+          result (transform-keys ->camelCaseKeyword (:body resp))]
+      (assoc-in resp [:body] result))))
+
 (def app 
   (-> routes
       wrap-params
       wrap-json-params
+      wrap-json-camelcase-keys
       wrap-json-response))
 
 (defn -main [port]
