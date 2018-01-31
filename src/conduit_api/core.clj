@@ -6,7 +6,8 @@
             [ring.handler.dump :refer [handle-dump]]
             [compojure.core :refer [defroutes ANY GET POST PUT DELETE]]
             [compojure.route :refer [not-found]]
-            [conduit-api.user.handler :refer [handle-create-user
+            [conduit-api.user.handler :refer [handle-login
+                                              handle-create-user
                                               handle-update-user
                                               handle-show-current-user]]
             [conduit-api.profile.handler :refer [handle-profile
@@ -17,15 +18,6 @@
   {:status 200
    :headers {}
    :body "It's running!!!"})
-
-(defn handle-login [req]
-  {:status 200
-   :headers {}
-   :body {:user {:email "jake@jake.com"
-                 :token "jwt.token.here"
-                 :username "jake"
-                 :bio "I work at statefarm"
-                 :image ""}}})
 
 (defroutes routes
   (GET "/" [] hello-world)
