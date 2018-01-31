@@ -105,4 +105,4 @@
                                 :following false}}}))
 
 (defn handle-delete-article [req]
-  (response))
+  (response {}))
