@@ -20,7 +20,9 @@
                                                  handle-feed-articles
                                                  handle-create-article
                                                  handle-update-article
-                                                 handle-delete-article]]
+                                                 handle-delete-article
+                                                 handle-favorite-article
+                                                 handle-unfavorite-article]]
             [conduit-api.comment.handler :refer [handle-index-comments
                                                  handle-create-comment
                                                  handle-delete-comment]]
@@ -49,6 +51,8 @@
   (POST "/api/articles" [] handle-create-article)
   (PUT "/api/articles/:slug" [] handle-update-article)
   (DELETE "/api/articles/:slug" [] handle-delete-article)
+  (POST "/api/articles/:slug/favorite" [] handle-favorite-article)
+  (DELETE "/api/articles/:slug/favorite" [] handle-favorite-article)
 
   (GET "/api/articles/:slug/comments" [] handle-index-comments)
   (POST "/api/articles/:slug/comments" [] handle-create-comment)
