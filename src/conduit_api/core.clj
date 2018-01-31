@@ -23,7 +23,8 @@
                                                  handle-delete-article]]
             [conduit-api.comment.handler :refer [handle-index-comments
                                                  handle-create-comment
-                                                 handle-delete-comment]]))
+                                                 handle-delete-comment]]
+            [conduit-api.tag.handler :refer [handle-index-tags]]))
 
 (defn hello-world [req]
   {:status 200
@@ -52,6 +53,8 @@
   (GET "/api/articles/:slug/comments" [] handle-index-comments)
   (POST "/api/articles/:slug/comments" [] handle-create-comment)
   (DELETE "/api/articles/:slug/comments/:id" [] handle-delete-comment)
+
+  (GET "/api/tags" [] handle-index-tags)
 
   (ANY "/request" [] handle-dump)
   (not-found "Page not found!"))
