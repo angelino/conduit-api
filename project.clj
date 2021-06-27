@@ -10,6 +10,7 @@
                  [camel-snake-kebab "0.4.0"]]
   :main conduit-api.core
   :profiles {:dev {:source-paths ["src" "dev"]
-                   :main conduit-api.dev}}
+                   :main conduit-api.dev}
+             :uberjar {:aot :all}}
   :min-lein-version "2.0.0"
   :uberjar-name "conduit-api.jar")

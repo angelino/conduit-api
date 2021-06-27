@@ -26,7 +26,8 @@
             [conduit-api.comment.handler :refer [handle-index-comments
                                                  handle-create-comment
                                                  handle-delete-comment]]
-            [conduit-api.tag.handler :refer [handle-index-tags]]))
+            [conduit-api.tag.handler :refer [handle-index-tags]])
+  (:gen-class))
 
 (defn hello-world [req]
   {:status 200
@@ -76,5 +77,7 @@
       wrap-json-camelcase-keys
       wrap-json-response))
 
-(defn -main [port]
-  (jetty/run-jetty app {:port (Integer. port)}))
+(defn -main [& args]
+  (let [port (Integer. (or (first args) 3000))]
+    (println (str "The server is running on: http://localhost:" port))
+    (jetty/run-jetty app {:port port})))
